@@ -12,7 +12,7 @@ export default function Show() {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/listings/getAllListings/${id}`)
+    fetch(`https://crimatch.onrender.com/api/v1/listings/getAllListings/${id}`)
       .then((res) => {
         if (res.status === 404) {
           // Assuming the error message is in the response body

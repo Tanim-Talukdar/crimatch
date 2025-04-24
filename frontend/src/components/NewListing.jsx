@@ -47,7 +47,7 @@ export default function NewListing() {
       };
 
       // Changed fetch URL to full backend URL with port 5000 to ensure request reaches backend
-      const response = await fetch('http://localhost:5000/api/v1/listings/newlisting', {
+      const response = await fetch('https://crimatch.onrender.com/api/v1/listings/newlisting', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend)

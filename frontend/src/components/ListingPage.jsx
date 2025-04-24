@@ -8,7 +8,7 @@ const Listing = () => {
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/listings/getAllListings") // or your correct endpoint
+    fetch("https://crimatch.onrender.com/api/v1/listings/getAllListings") // or your correct endpoint
       .then((res) => res.json())
       .then((data) => setListings(data))
       .catch((err) => console.error("Error fetching listings:", err));
