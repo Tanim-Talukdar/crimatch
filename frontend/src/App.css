@@ -1,0 +1,166 @@
+.nav-link{
+  margin-inline: 39px !important;
+}
+.contain{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+
+.nav-link {
+  font-size: 1.2rem;
+  z-index: 2;
+  letter-spacing: 0.1rem;
+  position: relative;
+  text-decoration: none;
+  color: rgb(133, 132, 132);
+  cursor: pointer;
+  margin-inline: 30px !important;
+}
+.navbar-brand {
+  font-size: 1.8rem;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: rgb(0, 0, 0);
+}
+
+.nav-link:hover::before {
+  width: 100%;
+}
+
+.header-section {
+  position: relative;
+}
+
+.header-section h1 {
+  font-size: 50px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.header-section p {
+  color: #bbb;
+  font-size: 18px;
+}
+
+.clr{
+  color: #44b054;
+}
+
+.header-section button {
+  margin-top: 20px;
+  background-color: #44b054;
+  border-color: #44b054;
+}
+
+footer a{
+  text-decoration: none;
+  color: #7a7c60;
+  font-weight: bold;
+  font-size: 1.2rem;
+} 
+
+.show-img{
+  width: 550px;
+  height: 600px;
+  border-radius: 10px;
+}
+
+.show-img img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+
+.content {
+  width: 100vw;
+  height: 80vh;
+  background-image: url('./recyle2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.text-box{
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px;
+  justify-content: center;
+  height: 100%;
+}
+
+
+
+.content h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  margin: 2rem 0;
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
+
+}
+
+.description {
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  max-width: 35rem;
+  color: gray;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.btn-get-started,
+.btn-signing-main {
+  text-decoration: none;
+  padding: 0.7rem 1.9rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition: 0.3s ease;
+}
+
+.btn-get-started {
+  border: 1px solid #2a2a2a;
+  color: white;
+}
+
+.btn-get-started:hover {
+  background-color: #ffffff;
+  color: #2a2a2a;
+  box-shadow: 0 0 50px rgb(43, 160, 111);
+  transform: scale(1.05);
+}
+
+.btn-signing-main {
+  background-color: lightgray;
+  color: rgb(0, 0, 0);
+}
+
+.btn-signing-main:hover {
+  background-color: rgb(184, 184, 184);
+  color: #ffffff;
+  box-shadow: 0 0 50px rgb(150, 199, 58);
+  transform: scale(1.05);
+}
+
