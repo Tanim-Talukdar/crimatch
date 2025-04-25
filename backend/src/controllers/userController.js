@@ -72,7 +72,7 @@ const login = async (req, res) => {
         
         return res.status(httpStatus.OK).json({
             message: "User logged in successfully",
-            token
+            token,
         });
 
     } catch (e) {

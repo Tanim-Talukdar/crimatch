@@ -55,7 +55,8 @@ const newListing = async (req,res) => {
           country,
           type,
           condition,
-          location
+          location,
+          // author: req.user._id, 
         });
     
         await newItem.save();

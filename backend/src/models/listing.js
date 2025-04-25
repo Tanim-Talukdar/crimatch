@@ -41,7 +41,12 @@ const listingSchema = new Schema({
   description: {
     type: String,
     required: true,
-  }
+  },
+  // author: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',  // Reference to User model
+  //   required: true,
+  // },
 });
 
 

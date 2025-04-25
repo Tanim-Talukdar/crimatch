@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     // Simulating a database fetch
     const fetchData = async () => {
-      const response = await fetch('https://crimatch.onrender.com/api/v1/listings/getAllListings'); // Replace with actual endpoint
+      const response = await fetch('https://crimatch.onrender.com/api/v1/getAllListings'); // Replace with actual endpoint
       const result = await response.json();
       setData(result);
     };

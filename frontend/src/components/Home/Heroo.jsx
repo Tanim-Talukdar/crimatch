@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from 'react';
-
-
+import React from 'react';
 
 const Heroo = () => {
-  const [data, setData] = useState([]);
-
-  // Mock fetching data from your database
-  useEffect(() => {
-    // Simulating a database fetch
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:5000/api/v1/listings/getAllListings'); // Replace with actual endpoint
-      const result = await response.json();
-      setData(result);
-    };
-
-    fetchData();
-  }, []);
-
   return (
-    <main className="content" >
-      <div  className='text-box'>
-        <h1>
-          Welcome To <br /> My Galaxy
-        </h1>
-        <p className="description">
-          A relentless creative mind fueled by code, robotics, and real-world innovation. I thrive on hands-on challenges, constantly pushing boundaries to turn vision into impact.
-        </p>
-        <div className="buttons">
-          <a href="#" className=" btn btn-success btn-get-started">Documentation</a>
-          <a href="#" className="btn-signing-main">Get Started</a>
+    <main className="content py-5" style={{ minHeight: '100vh', backgroundColor: '#f0f0f0' }}>
+      <div className="container h-100">
+        <div className="row h-100 align-items-center ">
+          <div className="col-12 col-md-6 text-center text-md-start mb-4 mb-md-0 hero-card">
+            <h1>
+              Welcome To <br /> My Galaxy
+            </h1>
+            <p className="description">
+              A relentless creative mind fueled by code, robotics, and real-world innovation. I thrive on hands-on challenges, constantly pushing boundaries to turn vision into impact.
+            </p>
+            <div className="buttons d-flex justify-content-center justify-content-md-start gap-3">
+              {/* Button with small size on small screens */}
+              <a href="#" className="btn btn-success btn-get-started btn-sm btn-md-lg">Documentation</a>
+              <a href="#" className="btn btn-outline-success btn-signing-main btn-sm btn-md-lg">Get Started</a>
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-
+import { ListingsContext } from "../context/listingContext";
 import NumberBox from "./quantity";
+
 
 
 export default function Show() {
   const { id } = useParams();
-  const [listing, setListing] = useState(null);
-  const [message, setMessage] = useState("");
-  const [notFound, setNotFound] = useState(false);
+ // Assuming you're using react-router for dynamic routing
+  const { listing, notFound, message, fetchSingleListing } = useContext(ListingsContext);
 
   useEffect(() => {
-    fetch(`https://crimatch.onrender.com/api/v1/listings/getAllListings/${id}`)
-      .then((res) => {
-        if (res.status === 404) {
-          // Assuming the error message is in the response body
-          return res.json().then((data) => {
-            setMessage(data.message || "Listing not found.");
-            setNotFound(true);
-            return null; // Early return to avoid further processing
-          });
-        }
-        return res.json(); // Process as normal if not 404
-      })
-      .then((data) => {
-        if (data && !notFound) {
-          setListing(data); // Set listing only if not already in 404 state
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching listing:", err);
-        setNotFound(true);
-        setMessage("An error occurred while fetching the listing.");
-      });
-  }, [id]);
+    fetchSingleListing(id); // Fetch the listing when the component mounts or the ID changes
+  }, [id, fetchSingleListing]);
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/api/v1/getAllListings/${id}`)
+  //     .then((res) => {
+  //       if (res.status === 404) {
+  //         // Assuming the error message is in the response body
+  //         return res.json().then((data) => {
+  //           setMessage(data.message || "Listing not found.");
+  //           setNotFound(true);
+  //           return null; // Early return to avoid further processing
+  //         });
+  //       }
+  //       return res.json(); // Process as normal if not 404
+  //     })
+  //     .then((data) => {
+  //       if (data && !notFound) {
+  //         setListing(data); // Set listing only if not already in 404 state
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error fetching listing:", err);
+  //       setNotFound(true);
+  //       setMessage("An error occurred while fetching the listing.");
+  //     });
+  // }, [id]);
 
   if (notFound) {
     return (

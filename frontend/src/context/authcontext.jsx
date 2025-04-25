@@ -2,14 +2,10 @@ import axios from "axios";
 import httpStatus from "http-status";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-
-
+import { jwtDecode } from "jwt-decode";
+import { client } from "../../client";
 export const AuthContext = createContext({});
 
-const client = axios.create({
-    baseURL: `https://crimatch.onrender.com/api/v1/users`
-})
 
 
 export const AuthProvider = ({ children }) => {
@@ -21,7 +17,8 @@ export const AuthProvider = ({ children }) => {
         const savedToken = localStorage.getItem("token");
         if (savedToken) {
             setToken(savedToken);
-            // Optionally fetch user info here
+            const decoded = jwtDecode(savedToken,{ header: true }); // 🛠 Fix: use savedToken not token
+            setUserData(decoded);
         }
     }, []);
 
@@ -40,9 +37,14 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await client.post("/login", { email, password });
             if (res.status === httpStatus.OK) {
-                localStorage.setItem("token", res.data.token);
-                setToken(res.data.token);
-                setUserData(res.data.user); // optional
+                const token = res.data.token;
+                localStorage.setItem("token", token);
+                setToken(token);
+
+                const decoded = jwtDecode(token,{ header: true }); // 🛠 Fix: use jwtDecode.default()
+                setUserData(decoded);
+ 
+                console.log("User Info:", decoded);
                 router("/listings");
             }
         } catch (err) {
@@ -57,15 +59,18 @@ export const AuthProvider = ({ children }) => {
         router("/");
     };
 
-
     const data = {
-        userData, setUserData, handleRegister, handleLogin, handleLogout, token 
-    }
+        userData,
+        setUserData,
+        handleRegister,
+        handleLogin,
+        handleLogout,
+        token
+    };
 
     return (
         <AuthContext.Provider value={data}>
             {children}
         </AuthContext.Provider>
-    )
-
-}
+    );
+};

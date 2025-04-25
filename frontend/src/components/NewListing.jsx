@@ -5,14 +5,14 @@ import { AuthContext } from '../context/authcontext'; // Added to access userDat
 
 export default function NewListing() {
   const navigate = useNavigate(); // Added navigate hook for navigation after adding listing
-  const { userData } = useContext(AuthContext); // Access userData from AuthContext
+  const { userData, token } = useContext(AuthContext); // Access userData from AuthContext
 
   // Added effect to check admin access and redirect if not admin
-  useEffect(() => {
-    if (!userData || !userData.isAdmin) { // Assuming userData has isAdmin property
-      navigate('/listings'); // Redirect non-admin users to listings page
-    }
-  }, [userData, navigate]);
+  // useEffect(() => {
+  //   if (!userData || !userData.isAdmin) { // Assuming userData has isAdmin property
+  //     navigate('/listings'); // Redirect non-admin users to listings page
+  //   }
+  // }, [userData, navigate]);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -47,9 +47,12 @@ export default function NewListing() {
       };
 
       // Changed fetch URL to full backend URL with port 5000 to ensure request reaches backend
-      const response = await fetch('https://crimatch.onrender.com/api/v1/listings/newlisting', {
+      const response = await fetch('https://crimatch.onrender.com/api/v1/newlisting', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+         },
         body: JSON.stringify(dataToSend)
       });
 

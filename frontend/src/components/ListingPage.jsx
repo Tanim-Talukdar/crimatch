@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ListingPage.css";
 import { Link } from "react-router-dom";
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { ListingsContext } from "../context/listingContext";
 
 
 const Listing = () => {
-  const [listings, setListings] = useState([]);
+//   const [listings, setListings] = useState([]);
 
-  useEffect(() => {
-    fetch("https://crimatch.onrender.com/api/v1/listings/getAllListings") // or your correct endpoint
-      .then((res) => res.json())
-      .then((data) => setListings(data))
-      .catch((err) => console.error("Error fetching listings:", err));
-  }, []);
+//   useEffect(() => {
+//     fetch("https://crimatch.onrender.com/api/v1/listings/getAllListings") // or your correct endpoint
+//       .then((res) => res.json())
+//       .then((data) => setListings(data))
+//       .catch((err) => console.error("Error fetching listings:", err));
+//   }, []);  
 
+
+    const { listings } = React.useContext(ListingsContext);
   return (
     <div className="container">
         <div className="row">

@@ -1,12 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect } from 'react';
 import { AuthContext } from './context/authcontext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 
 export default function Nav() {
   const { token, handleLogout, userData } = useContext(AuthContext); // Added userData to access admin status
+  const location = useLocation();
 
+useEffect(() => {
+  const collapse = document.getElementById('navbarSupportedContent');
+  const bsCollapse = new window.bootstrap.Collapse(collapse, {
+    toggle: false,
+  });
+  bsCollapse.hide(); // hide on route change
+}, [location]);
   return (
     <>
       {/* TOP NAVBAR */}
@@ -26,9 +34,9 @@ export default function Nav() {
                 <li className="nav-item"><Link className="nav-link" to="/Listings">Listings</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/contact">Contact us</Link></li>
                 {/* Conditionally render Add New Listing link only if user is admin */}
-                {userData && userData.isAdmin && (
+                {/* {userData && userData.isAdmin && ( */}
                   <li className="nav-item"><Link className="nav-link" to="/newlisting">Add New Listing</Link></li>
-                )}
+                {/* )} */}
               </ul>
             </div>
 

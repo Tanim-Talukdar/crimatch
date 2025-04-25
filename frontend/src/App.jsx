@@ -9,6 +9,8 @@ import { AuthProvider } from './context/authcontext';
 import Show from './components/Show';
 import Footer from './Footer';
 import NewListing from './components/NewListing';
+import { ListingsProvider } from './context/listingContext';
+import Contact from './components/Contact';
 
 
 
@@ -27,6 +29,7 @@ function AppContent() {
         <Route path="/listings" element={<Listing />} />
         <Route path="/listings/:id" element={<Show />} />
         <Route path="/newlisting" element={<NewListing />} />
+        <Route path="/contact" element={<Contact/>}/>
       </Routes>
       {!hideFooterPaths.includes(location.pathname) && <Footer />}
     </>
@@ -36,9 +39,11 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
+    <ListingsProvider>
       <AuthProvider>
           <AppContent />
       </AuthProvider>
+      </ListingsProvider>
     </BrowserRouter>
   );
 }
