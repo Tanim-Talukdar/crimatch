@@ -1,16 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import multer from "multer";  // Added import for multer
+import dotenv from "dotenv";
 import userRoutes from "./src/routes/user.routes.js";
 import listingRoutes from "./src/routes/listing.routes.js";
 import contactRoutes from "./src/routes/contact.routes.js";
-import { storage } from "./cloudinary.js";
-const upload = multer({storage});
-import dotenv from "dotenv";
+import reviewRoutes from "./src/routes/review.routes.js";
 
 
+if (process.env.NODE_ENV != "production"){
 dotenv.config();
+}
 
 const app = express();
 
@@ -32,9 +32,7 @@ main()
         console.log(err);
     });
 
-app.use("/api/v1", userRoutes);
-app.use("/api/v1", listingRoutes);
-app.use("/api/v1", contactRoutes);
+    app.use("/api/v1", [userRoutes, listingRoutes, contactRoutes]);
 
 app.get("/", (req,res) => {
     res.send("testing Done");
