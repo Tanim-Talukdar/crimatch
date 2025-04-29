@@ -1,71 +1,78 @@
-import React, { useState, useContext, useEffect } from 'react'; // Added useContext and useEffect for admin check
+import React, { useState, useContext, useEffect } from 'react'; 
 import { Snackbar, Alert } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Added for navigation after adding listing
-import { AuthContext } from '../context/authcontext'; // Added to access userData for admin check
+import { useNavigate } from 'react-router-dom'; 
+import { AuthContext } from '../context/authcontext'; 
+import { BASE_URL } from '../../client';
 
 export default function NewListing() {
-  const navigate = useNavigate(); // Added navigate hook for navigation after adding listing
-  const { userData, token } = useContext(AuthContext); // Access userData from AuthContext
+  const navigate = useNavigate(); 
+  const { userData, token } = useContext(AuthContext); 
 
-  // Added effect to check admin access and redirect if not admin
-  // useEffect(() => {
-  //   if (!userData || !userData.isAdmin) { // Assuming userData has isAdmin property
-  //     navigate('/listings'); // Redirect non-admin users to listings page
-  //   }
-  // }, [userData, navigate]);
+  useEffect(() => {
+    if (!userData || userData.role === "user") { 
+      navigate('/listings'); 
+    }
+  }, [userData, navigate]);
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    image: '',
+    image: null,
     quantity: '',
     price: '',
     country: '',
     location: '',
-    type: '',        // New field
-    condition: ''    // New field
+    type: '',        
+    condition: ''    
   });
 
   const [snack, setSnack] = useState({ open: false, message: '', severity: 'success' });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const { name, value, files } = e.target;
+
+    if (name === "image" && files) {
+
+      setFormData(prev => ({
+        ...prev,
+        image: files[0]  
+      }));
+    } else {
+
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // Convert quantity to string before sending
-      const dataToSend = {
-        ...formData,
-        quantity: formData.quantity.toString()
-      };
-
-      // Changed fetch URL to full backend URL with port 5000 to ensure request reaches backend
-      const response = await fetch('https://crimatch.onrender.com/api/v1/newlisting', {
+      const dataToSend = new FormData();
+      for (const key in formData) {
+        dataToSend.append(key, formData[key]);
+      }
+  
+      const response = await fetch(`${BASE_URL}/newlisting`, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
-         },
-        body: JSON.stringify(dataToSend)
+        },
+        body: dataToSend 
       });
-
+  
       const result = await response.json();
       console.log('Status:', response.status);
       console.log('Result:', result);
-
+  
       if (response.ok) {
         setSnack({ open: true, message: 'Listing created successfully!', severity: 'success' });
         setFormData({
           title: '',
           description: '',
-          image: '',
+          image: null,
           quantity: '',
           price: '',
           country: '',
@@ -73,7 +80,7 @@ export default function NewListing() {
           type: '',
           condition: ''
         });
-        navigate('/listings'); // Navigate to listing page after successful creation (added)
+        navigate('/listings'); 
       } else {
         setSnack({ open: true, message: result.message || 'Failed to create listing.', severity: 'error' });
       }
@@ -86,7 +93,7 @@ export default function NewListing() {
   return (
     <div className="container mt-5">
       <h2>Create a New Listing</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType='multipart/form-data'>
         {/* Form fields */}
         <div className="mb-3">
           <label className="form-label">Title</label>
@@ -111,14 +118,12 @@ export default function NewListing() {
         <div className="mb-3">
           <label className="form-label">Image URL</label>
           <input
-            type="text"
+            type="file"
             name="image"
             className="form-control"
-            value={formData.image}
             onChange={handleChange}
-            placeholder="Enter image URL"
           />
-          {formData.image && (
+          {/* {formData.image && (
             <div className="mt-2">
               <img
                 src={formData.image}
@@ -126,7 +131,7 @@ export default function NewListing() {
                 style={{ maxWidth: '200px', borderRadius: '10px' }}
               />
             </div>
-          )}
+          )} */}
         </div>
         <div className="mb-3">
           <label className="form-label">Quantity</label>
@@ -216,3 +221,4 @@ export default function NewListing() {
       </Snackbar>
     </div>
   )};
+
