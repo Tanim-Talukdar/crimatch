@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { User } from "./user.js";
 
 const reviewSchema = new Schema({
     comment: String,
@@ -15,6 +16,6 @@ const reviewSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-});
+},{ timestamps: true });
 
-module.exports = mongoose.model("Review", reviewSchema);
+export const Review = mongoose.model("Review", reviewSchema);
