@@ -1,20 +1,24 @@
-import Review from "../models/review";
+import { Review } from "../models/review.js";
+import  Listing  from "../models/listing.js";
 
 
-module.exports.reviews =  async (req, res) => {
+
+
+const reviews =  async (req, res) => {
     let listing = await Listing.findById(req.params.id);
-    let newReview = new Reviews(req.body.review);
+    let newReview = new Review(req.body.review);
     newReview.author = req.user._id;
     listing.reviews.push(newReview);
     
     await newReview.save();
     await listing.save();
-
 };
 
-module.exports.reviewDelete = async (req, res) => {
+const reviewDelete = async (req, res) => {
     let { id , reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: {reviews: reviewId} });
-    await Reviews.findByIdAndDelete(reviewId);
+    await Review.findByIdAndDelete(reviewId);
     
-};
+}; 
+
+export {reviewDelete , reviews}
