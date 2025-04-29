@@ -3,12 +3,11 @@ import { client } from "../../client";
 
 export const ListingsContext = createContext();
 
-
 export const ListingsProvider = ({ children }) => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState("");  // For error messages
-  const [notFound, setNotFound] = useState(false);  // For handling 404 errors
+  const [message, setMessage] = useState(""); 
+  const [notFound, setNotFound] = useState(false); 
   const [listing, setListing] = useState(null);
 
   const fetchListings = async () => {
@@ -24,20 +23,18 @@ export const ListingsProvider = ({ children }) => {
 
   const fetchSingleListing = async (id) => {
     try {
-      const res = await fetch(`https://crimatch.onrender.com/api/v1/getAllListings/${id}`);
-      if (res.status === 404) {
-        const data = await res.json();
-        setMessage(data.message || "Listing not found.");
-        setNotFound(true);
-        return null; // Early return if not found
-      }
-      const data = await res.json();
-      setNotFound(false); // Reset "not found" error state
-      setListing(data);
+      const res = await client.get(`/getAllListings/${id}`);
+      setListing(res.data);
+      setNotFound(false); // If success, no "not found" error
     } catch (error) {
       console.error("Error fetching listing:", error);
+      if (error.response && error.response.status === 404) {
+        setMessage(error.response.data.message || "Listing not found.");
+      } else {
+        setMessage("An error occurred while fetching the listing.");
+      }
       setNotFound(true);
-      setMessage("An error occurred while fetching the listing.");
+      setListing(null); // Clear previous listing
     }
   };
 
@@ -46,7 +43,16 @@ export const ListingsProvider = ({ children }) => {
   }, []);
 
   return (
-    <ListingsContext.Provider value={{ listings, loading, message, notFound, listing, fetchSingleListing}}>
+    <ListingsContext.Provider
+      value={{
+        listings,
+        loading,
+        message,
+        notFound,
+        listing,
+        fetchSingleListing,
+      }}
+    >
       {children}
     </ListingsContext.Provider>
   );
