@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="mt-5" style={{ backgroundColor: "rgb(250, 250, 250)", borderTop: "2px solid #bbb", paddingBottom: "60px" }}>
+    <footer className="mt-5" style={{ backgroundColor: "rgba(22, 28, 45, 1)", borderTop: "2px solid #bbb", paddingBottom: "60px" }}>
       <div className="container mt-4">
         <div className="row mt-5 text-md-start">
 
           {/* Logo and copyright */}
           <div className="col-12 col-md-3 mb-4">
             <h1>
-              <Link className="navbar-brand text-success" to="/">Crimatch</Link>
+              <Link className="navbar-brand clr"  to="/">Crimatch</Link>
             </h1>
-            <p>&copy; 2024 - 2025, Crimatch. All rights reserved.</p>
+            <p style={{color: "#9e9e9e;"}}>&copy; 2024 - 2025, Crimatch. All rights reserved.</p>
           </div>
 
           {/* Company Links */}
@@ -24,7 +24,7 @@ export default function Footer() {
               <li><a href="#">Pricing</a></li>
               <li><a href="#">Referral Programme</a></li>
               <li><a href="#">Careers</a></li>
-              <li><a href="#">Zerodha.tech</a></li>
+              <li><a href="#">Crimatch.tech</a></li>
               <li><a href="#">Press & Media</a></li>
               <li><a href="#">Crimatch Cares (CSR)</a></li>
             </ul>
