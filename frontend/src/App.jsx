@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Nav from './Nav';
@@ -11,11 +10,21 @@ import Footer from './Footer';
 import NewListing from './components/NewListing';
 import { ListingsProvider } from './context/listingContext';
 import Contact from './components/Contact';
-
-
+import NotFound from './NotFound';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 function AppContent() {
   const location = useLocation();
+
+  // Initialize AOS inside useEffect
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
 
   // paths where you want to hide the footer
   const hideFooterPaths = ["/auth"];
@@ -29,7 +38,8 @@ function AppContent() {
         <Route path="/listings" element={<Listing />} />
         <Route path="/listings/:id" element={<Show />} />
         <Route path="/newlisting" element={<NewListing />} />
-        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideFooterPaths.includes(location.pathname) && <Footer />}
     </>
@@ -39,11 +49,12 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
-    <ListingsProvider>
-      <AuthProvider>
+      <ListingsProvider>
+        <AuthProvider>
           <AppContent />
-      </AuthProvider>
+        </AuthProvider>
       </ListingsProvider>
     </BrowserRouter>
   );
 }
+
