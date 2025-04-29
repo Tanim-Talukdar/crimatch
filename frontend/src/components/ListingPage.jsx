@@ -5,22 +5,12 @@ import { ListingsContext } from "../context/listingContext";
 
 
 const Listing = () => {
-//   const [listings, setListings] = useState([]);
-
-//   useEffect(() => {
-//     fetch("https://crimatch.onrender.com/api/v1/listings/getAllListings") // or your correct endpoint
-//       .then((res) => res.json())
-//       .then((data) => setListings(data))
-//       .catch((err) => console.error("Error fetching listings:", err));
-//   }, []);  
-
-
     const { listings } = React.useContext(ListingsContext);
   return (
     <div className="container">
         <div className="row">
             <div className="mt-3 mb-4">
-                <h1 className="clr">All Listings</h1>
+                <h3 className="clr">All Listings</h3>
             </div>
             <hr />
         {listings.map((listing, index) => (
@@ -29,8 +19,8 @@ const Listing = () => {
                 key={listing._id}
                 className="card col m-3 text-decoration-none text-dark"
                 style={{ minWidth: "19rem", maxWidth: "25rem", cursor: "pointer" }}
-              >
-                    <img src={listing.image.url || '/images.jpg'} alt={listing.title} className="card-img-top" style={{minHeight: "15rem",maxHeight: "5rem"}}/>
+                >
+                    <img src={listing.image.path } alt={listing.title} className="card-img-top" style={{minHeight: "15rem",maxHeight: "5rem"}}/>
                     <div className="card-body row ">
                         <h4 className="card-title">
                             {listing.title}
@@ -43,7 +33,6 @@ const Listing = () => {
                         </h5>
 
                         <button className="btn btn-outline-success">Show Detail</button>
-
                     </div>
                 </Link>
             ))}
