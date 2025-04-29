@@ -1,9 +1,84 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../context/authcontext';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EmailIcon from '@mui/icons-material/Email';
+import { BASE_URL } from '../../client';
+import { useNavigate } from 'react-router-dom';
+import { Snackbar, Alert } from '@mui/material';  // Import Snackbar and Alert from MUI
 
 export default function Contact() {
+  const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
+  const [formData, setFormData] = useState({
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [error, setError] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar visibility state
+  const [snackbarType, setSnackbarType] = useState('success'); // Type of Snackbar (success/error)
+
+  // Redirect user to /auth if no token is found
+  useEffect(() => {
+    if (!token) {
+      navigate("/auth"); // Navigate to the login page if the token is not found
+    }
+  }, [token, navigate]);
+
+  // Handle form input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    setLoading(true);
+    try {
+      const response = await fetch(`${BASE_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Send the token if needed
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setResponseMessage('Your message has been sent successfully!');
+        setSnackbarType('success'); // Set snackbar type to success
+        setFormData({
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        throw new Error('Failed to send the message');
+      }
+    } catch (err) {
+      setError('There was an error sending your message. Please try again later.');
+      setSnackbarType('error'); // Set snackbar type to error
+    } finally {
+      setLoading(false);
+      setOpenSnackbar(true); // Show snackbar message
+    }
+  };
+
+  // Handle Snackbar close
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false); // Close the Snackbar
+  };
+
   return (
     <div className="container text-muted">
       <br />
@@ -17,9 +92,9 @@ export default function Contact() {
       </div>
       <br />
       <br />
-      <div className="row">
+      <div className="row ">
         {/* Contact Info */}
-        <div className="col-12 col-md-6 mb-4">
+        <div className="col-6 col-md-6 mb-4">
           <div className="card h-100 p-3">
             <h4 className='clr'>
               <AddLocationAltIcon sx={{ fontSize: 30 }} /> Address
@@ -31,28 +106,85 @@ export default function Contact() {
             </div>
           </div>
         </div>
+        <div className="col-6 col-md-6 mb-4">
+          <div className="card h-100 p-3">
+            <h4 className='clr'>
+              Contact Detail
+            </h4>
 
-        {/* Contact Form */}
-        <div className="col-12 col-md-6">
-          <div className="mb-4">
-            <label className="form-label h5">Your Gmail</label>
-            <input type="email" name="email" className="form-control" required />
+            <p><LocalPhoneIcon className='clr me-2' sx={{ fontSize: 25 }} />018 *** *** **</p>
+            <p><EmailIcon className="clr me-2" sx={{ fontSize: 25 }} />talukdertanim73@gmail.com</p>
+
           </div>
-          <div className="mb-4">
-            <label className="form-label h5">Subject</label>
-            <input type="text" name="subject" className="form-control" required />
-          </div>
-          <div className="mb-4">
-            <label className="form-label h5">Message</label>
-            <textarea name="message" className="form-control" rows={6} required />
-          </div>
-          <button className='btn btn-success w-100 fs-5'>Send</button>
         </div>
+        <br />
+        <br />
+        {/* Contact Form */}
+        <form onSubmit={handleSubmit}>
+          <div className="col-12 col-md-6,row">
+            <div className="mb-4">
+              <label className="form-label h5">Your Gmail</label>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="form-label h5">Subject</label>
+              <input
+                type="text"
+                name="subject"
+                className="form-control"
+                value={formData.subject}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="form-label h5">Message</label>
+              <textarea
+                name="message"
+                className="form-control"
+                rows={6}
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {/* Show loading spinner */}
+            {loading && <div className="text-center">Loading...</div>}
+
+            <button className='btn btn-success w-100 fs-5' type="submit">
+              Send
+            </button>
+          </div>
+        </form>
       </div>
+
+      {/* Snackbar for success or error messages */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}  // Duration in milliseconds before auto-closing
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarType}  // 'success' or 'error'
+          sx={{ width: '100%' }}
+        >
+          {snackbarType === 'success' ? responseMessage : error}
+        </Alert>
+      </Snackbar>
+
       <br />
       <br />
       <br />
       <br />
     </div>
-  )
+  );
 }
