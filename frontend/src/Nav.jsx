@@ -21,7 +21,7 @@ useEffect(() => {
       <nav className="navbar navbar-expand-lg bg-white border-bottom">
         <div className="container-fluid mx-5">
           <h1>
-            <Link className="navbar-brand text-success" to="/">Crimatch</Link>
+            <Link className="navbar-brand clr" to="/">Crimatch</Link>
           </h1>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span className="navbar-toggler-icon text-success"></span>
@@ -34,9 +34,15 @@ useEffect(() => {
                 <li className="nav-item"><Link className="nav-link" to="/Listings">Listings</Link></li>
                 <li className="nav-item"><Link className="nav-link" to="/contact">Contact us</Link></li>
                 {/* Conditionally render Add New Listing link only if user is admin */}
-                {/* {userData && userData.isAdmin && ( */}
+
+
+                {userData && userData.role === "admin" && (
                   <li className="nav-item"><Link className="nav-link" to="/newlisting">Add New Listing</Link></li>
-                {/* )} */}
+                  )} 
+                  
+
+
+
               </ul>
             </div>
 
@@ -54,20 +60,18 @@ useEffect(() => {
         </div>
       </nav>
 
-      {/* BOTTOM SEARCH + ICONS */}
       <nav className="navbar navbar-light bg-light px-4">
   <div className="container-fluid d-flex justify-content-between align-items-center w-100">
     
-    {/* Left: Empty or add brand if you want */} 
+
     <div style={{ width: "150px" }}></div>
     
-    {/* Center: Search Bar */}
+
     <form className="d-flex" style={{ width: "400px" }}>
       <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
       <button className="btn btn-outline-success" type="submit">Search</button>
     </form>
 
-    {/* Right: Cart and Profile Icons */}
     <div>
       <a href="/cart" className="btn btn-outline-secondary rounded-circle mx-2" style={{ height: "50px", width: "48px", border: "0" }}>
         <ShoppingCartIcon />
@@ -82,3 +86,5 @@ useEffect(() => {
     </>
   );
 }
+
+
