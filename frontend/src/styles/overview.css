@@ -1,1 +1,73 @@
 
+/* Overview container and other styles remain the same */
+.overview-container {
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.overview-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: #0b3d3b;
+}
+
+.overview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+/* Basic style for the overview box */
+.overview-box {
+  flex: 1;
+  min-width: 250px;
+  max-width: 30%;
+  background: linear-gradient(135deg, #d0eaff, #e0f7f1);
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  height: 300px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+  
+  /* Ensure the element is in the flow */
+  position: relative; 
+  z-index: 1;
+}
+
+/* Active state styling */
+.overview-box.active {
+  transform: translateY(-20px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 2; /* Ensure active card stays above others */
+  animation: fadeIn 1s ease-out; /* Add animation for smooth effect */
+}
+
+/* Keyframes for fadeIn animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+}
+
+/* Heading and text styling */
+.overview-heading {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #006060;
+}
+
+.overview-text {
+  color: #444;
+  line-height: 1.6;
+}
