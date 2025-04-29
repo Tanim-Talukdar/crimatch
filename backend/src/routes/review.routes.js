@@ -4,10 +4,8 @@ import { reviews,reviewDelete } from "../controllers/reviewController.js";
 
 
 const router = Router({mergeParams: true});
-// Reviews
-router.post("/",  reviews);
 
-  //review Delete Route
+router.post("/",  reviews);
 router.delete("/:reviewId", reviewDelete);
 
-module.exports = router;
+export default router;
