@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+
 const listingSchema = new Schema({
   title: {
     type: String,
@@ -26,13 +27,8 @@ const listingSchema = new Schema({
     required: true,
   },
   image: {
-    url: {
-      type: String,
-      set: (v) =>
-        v === ""
-          ? "https://www.shutterstock.com/image-photo/produced-polymer-plastic-pellet-factory-600nw-2491491327.jpg"
-          : v,
-    },
+    path: String,
+    filename: String
   },
   condition: {
     type: String,
@@ -42,12 +38,13 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
-  // author: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',  // Reference to User model
-  //   required: true,
-  // },
-});
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',  // Reference to User model
+    required: true,
+  },
+},{ timestamps: true }
+);
 
 
 
