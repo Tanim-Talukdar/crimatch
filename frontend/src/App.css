@@ -26,7 +26,7 @@
 .nav-link::before {
   content: "";
   position: absolute;
-  background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+  background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgb(87, 199, 171) 50%, rgba(237, 221, 83, 1) 100%);
   height: 3px;
   width: 0;
   left: 0;
@@ -57,20 +57,19 @@
 }
 
 .clr{
-  color: #44b054;
+  color: #22cea3;
 }
 
 .header-section button {
   margin-top: 20px;
-  background-color: #44b054;
+  background-color: #44b09e;
   border-color: #44b054;
 }
 
-footer a{
+footer a,p{
   text-decoration: none;
-  color: #7a7c60;
+  color: #9e9e9e;
   font-weight: bold;
-  font-size: 1.2rem;
 } 
 
 .show-img{
@@ -86,15 +85,6 @@ footer a{
 }
 
 
-.content {
-  width: 100vw;
-  height: 80vh;
-  background-image: url('./recyle2.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-}
 
 
 
@@ -131,40 +121,10 @@ footer a{
   margin-top: 3rem;
 }
 
-.btn-get-started,
-.btn-signing-main {
-  text-decoration: none;
-  padding: 0.7rem 1.9rem;
-  border-radius: 50px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  transition: 0.3s ease;
+.btn-success{
+  background-color: #339969 !important;
 }
 
-.btn-get-started {
-  border: 1px solid #2a2a2a;
-  color: white;
-}
-
-.btn-get-started:hover {
-  background-color: #ffffff;
-  color: #2a2a2a;
-  box-shadow: 0 0 50px rgb(43, 160, 111);
-  transform: scale(1.05);
-}
-
-.btn-signing-main {
-  background-color: lightgray;
-  color: rgb(0, 0, 0);
-}
-
-.btn-signing-main:hover {
-  background-color: rgb(184, 184, 184);
-  color: #ffffff;
-  box-shadow: 0 0 50px rgb(150, 199, 58);
-  transform: scale(1.05);
-}
 
 .hero-card{
   padding: 20px;
@@ -172,4 +132,7 @@ footer a{
   border: 3px solid black;
   border-radius: 10px;
   box-shadow: 0 0 50px rgb(79, 82, 81);
+
 }
+
+
