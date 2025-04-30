@@ -8,11 +8,11 @@ export default function NewListing() {
   const navigate = useNavigate(); 
   const { userData, token } = useContext(AuthContext); 
 
-  // useEffect(() => {
-  //   if (!userData || userData.role === "user") { 
-  //     navigate('/listings'); 
-  //   }
-  // }, [userData, navigate]);
+  useEffect(() => {
+    if (!userData || userData.role === "user") { 
+      navigate('/listings'); 
+    }
+  }, [userData, navigate]);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -32,13 +32,11 @@ export default function NewListing() {
     const { name, value, files } = e.target;
 
     if (name === "image" && files) {
-
       setFormData(prev => ({
         ...prev,
         image: files[0]  
       }));
     } else {
-
       setFormData(prev => ({
         ...prev,
         [name]: value
@@ -93,9 +91,9 @@ export default function NewListing() {
   return (
     <div className="container mt-5">
       <h2>Create a New Listing</h2>
-      <form onSubmit={handleSubmit} encType='multipart/form-data'>
+      <form onSubmit={handleSubmit} encType='multipart/form-data' className='ff'>
         {/* Form fields */}
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up">
           <label className="form-label">Title</label>
           <input
             type="text"
@@ -106,7 +104,7 @@ export default function NewListing() {
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up" data-aos-delay="100">
           <label className="form-label">Description</label>
           <textarea
             name="description"
@@ -115,7 +113,7 @@ export default function NewListing() {
             onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up" data-aos-delay="200">
           <label className="form-label">Image URL</label>
           <input
             type="file"
@@ -123,17 +121,8 @@ export default function NewListing() {
             className="form-control"
             onChange={handleChange}
           />
-          {/* {formData.image && (
-            <div className="mt-2">
-              <img
-                src={formData.image}
-                alt="Preview"
-                style={{ maxWidth: '200px', borderRadius: '10px' }}
-              />
-            </div>
-          )} */}
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up" data-aos-delay="300">
           <label className="form-label">Quantity</label>
           <input
             type="number"
@@ -144,7 +133,7 @@ export default function NewListing() {
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up" data-aos-delay="400">
           <label className="form-label">Price</label>
           <input
             type="number"
@@ -155,53 +144,57 @@ export default function NewListing() {
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">Country</label>
-          <input
-            type="text"
-            name="country"
-            className="form-control"
-            value={formData.country}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Location</label>
-          <input
-            type="text"
-            name="location"
-            className="form-control"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {/* New Fields */}
-        <div className="mb-3">
-          <label className="form-label">Type</label>
-          <input
-            type="text"
-            name="type"
-            className="form-control"
-            value={formData.type}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Condition</label>
-          <input
-            type="text"
-            name="condition"
-            className="form-control"
-            value={formData.condition}
-            onChange={handleChange}
-            required
-          />
+        <div className="row" data-aos="fade-left" data-aos-delay="500">
+          <div className="mb-3 col-6">
+            <label className="form-label">Country</label>
+            <input
+              type="text"
+              name="country"
+              className="form-control"
+              value={formData.country}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <label className="form-label">Location</label>
+            <input
+              type="text"
+              name="location"
+              className="form-control"
+              value={formData.location}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
 
-        <button className="btn btn-success">Add Listing</button>
+        <div className="row" data-aos="fade-right" data-aos-delay="600">
+          <div className="mb-3 col-6">
+            <label className="form-label">Type</label>
+            <input
+              type="text"
+              name="type"
+              className="form-control"
+              value={formData.type}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3 col-6">
+            <label className="form-label">Condition</label>
+            <input
+              type="text"
+              name="condition"
+              className="form-control"
+              value={formData.condition}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-success" data-aos="fade-up" data-aos-delay="700">Add Listing</button>
       </form>
 
       {/* Snackbar for success/error messages */}
@@ -220,4 +213,5 @@ export default function NewListing() {
         </Alert>
       </Snackbar>
     </div>
-  )};
+  );
+}
