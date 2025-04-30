@@ -7,7 +7,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import { BASE_URL } from '../../client';
 import { useNavigate } from 'react-router-dom';
-import { Snackbar, Alert } from '@mui/material';  // Import Snackbar and Alert from MUI
+import { Snackbar, Alert } from '@mui/material';
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -20,17 +20,15 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [error, setError] = useState('');
-  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar visibility state
-  const [snackbarType, setSnackbarType] = useState('success'); // Type of Snackbar (success/error)
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarType, setSnackbarType] = useState('success');
 
-  // Redirect user to /auth if no token is found
   useEffect(() => {
     if (!token) {
-      navigate("/auth"); // Navigate to the login page if the token is not found
+      navigate("/auth");
     }
   }, [token, navigate]);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -39,24 +37,22 @@ export default function Contact() {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     setLoading(true);
     try {
       const response = await fetch(`${BASE_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Send the token if needed
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setResponseMessage('Your message has been sent successfully!');
-        setSnackbarType('success'); // Set snackbar type to success
+        setSnackbarType('success');
         setFormData({
           email: '',
           subject: '',
@@ -67,16 +63,15 @@ export default function Contact() {
       }
     } catch (err) {
       setError('There was an error sending your message. Please try again later.');
-      setSnackbarType('error'); // Set snackbar type to error
+      setSnackbarType('error');
     } finally {
       setLoading(false);
-      setOpenSnackbar(true); // Show snackbar message
+      setOpenSnackbar(true);
     }
   };
 
-  // Handle Snackbar close
   const handleSnackbarClose = () => {
-    setOpenSnackbar(false); // Close the Snackbar
+    setOpenSnackbar(false);
   };
 
   return (
@@ -84,7 +79,7 @@ export default function Contact() {
       <br />
       <br />
       <br />
-      <div className="text-center">
+      <div className="text-center" data-aos="fade-down">
         <h1 className='clr'>Get In Touch With Us</h1>
         <p>
           For more information about our product & services. Please feel free to drop us an email. Our staff always be there to help you out.
@@ -92,9 +87,9 @@ export default function Contact() {
       </div>
       <br />
       <br />
-      <div className="row ">
+      <div className="row">
         {/* Contact Info */}
-        <div className="col-6 col-md-6 mb-4">
+        <div className="col-6 col-md-6 mb-4" data-aos="fade-right">
           <div className="card h-100 p-3">
             <h4 className='clr'>
               <AddLocationAltIcon sx={{ fontSize: 30 }} /> Address
@@ -106,22 +101,17 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        <div className="col-6 col-md-6 mb-4">
+        <div className="col-6 col-md-6 mb-4" data-aos="fade-left">
           <div className="card h-100 p-3">
-            <h4 className='clr'>
-              Contact Detail
-            </h4>
-
+            <h4 className='clr'>Contact Detail</h4>
             <p><LocalPhoneIcon className='clr me-2' sx={{ fontSize: 25 }} />018 *** *** **</p>
             <p><EmailIcon className="clr me-2" sx={{ fontSize: 25 }} />talukdertanim73@gmail.com</p>
-
           </div>
         </div>
-        <br />
-        <br />
+
         {/* Contact Form */}
-        <form onSubmit={handleSubmit}>
-          <div className="col-12 col-md-6,row">
+        <form onSubmit={handleSubmit} data-aos="zoom-in-up">
+          <div className="col-12 col-md-6 row">
             <div className="mb-4">
               <label className="form-label h5">Your Gmail</label>
               <input
@@ -156,7 +146,6 @@ export default function Contact() {
               />
             </div>
 
-            {/* Show loading spinner */}
             {loading && <div className="text-center">Loading...</div>}
 
             <button className='btn btn-success w-100 fs-5' type="submit">
@@ -169,12 +158,12 @@ export default function Contact() {
       {/* Snackbar for success or error messages */}
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={6000}  // Duration in milliseconds before auto-closing
+        autoHideDuration={6000}
         onClose={handleSnackbarClose}
       >
         <Alert
           onClose={handleSnackbarClose}
-          severity={snackbarType}  // 'success' or 'error'
+          severity={snackbarType}
           sx={{ width: '100%' }}
         >
           {snackbarType === 'success' ? responseMessage : error}
@@ -188,3 +177,4 @@ export default function Contact() {
     </div>
   );
 }
+
