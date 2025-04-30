@@ -14,6 +14,9 @@ import NotFound from './NotFound';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import CartPage from './components/Cart/CartPage';
+import EditListing from './components/EditListing';
+
 
 function AppContent() {
   const location = useLocation();
@@ -37,8 +40,10 @@ function AppContent() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/listings/:id" element={<Show />} />
+        <Route path="/edit/:id" element={<EditListing />} />
         <Route path="/newlisting" element={<NewListing />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {!hideFooterPaths.includes(location.pathname) && <Footer />}
