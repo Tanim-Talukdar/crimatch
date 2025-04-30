@@ -35,10 +35,10 @@ useEffect(() => {
                 <li className="nav-item"><Link className="nav-link" to="/contact">Contact us</Link></li>
                 {/* Conditionally render Add New Listing link only if user is admin */}
 
-
-                {userData && userData.role === "admin" && (
+{/* 
+                {userData && userData.role === "admin" && ( */}
                   <li className="nav-item"><Link className="nav-link" to="/newlisting">Add New Listing</Link></li>
-                  )} 
+{/*                   )}  */}
                   
 
 
