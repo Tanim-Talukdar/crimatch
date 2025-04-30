@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -8,15 +8,15 @@ export default function Footer() {
         <div className="row mt-5 text-md-start">
 
           {/* Logo and copyright */}
-          <div className="col-12 col-md-3 mb-4">
+          <div className="col-12 col-md-3 mb-4" data-aos="fade-right">
             <h1>
-              <Link className="navbar-brand clr"  to="/">Crimatch</Link>
+              <Link className="navbar-brand clr" to="/">Crimatch</Link>
             </h1>
-            <p style={{color: "#9e9e9e;"}}>&copy; 2024 - 2025, Crimatch. All rights reserved.</p>
+            <p style={{ color: "#9e9e9e" }}>&copy; 2024 - 2025, Crimatch. All rights reserved.</p>
           </div>
 
           {/* Company Links */}
-          <div className="col-6 col-md-3 mb-4">
+          <div className="col-6 col-md-3 mb-4" data-aos="fade-up">
             <h5 className='clr'>Company</h5>
             <ul className="list-unstyled">
               <li><a href="#">About</a></li>
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
 
           {/* Support Links */}
-          <div className="col-6 col-md-3 mb-4">
+          <div className="col-6 col-md-3 mb-4" data-aos="fade-up">
             <h5 className='clr'>Support</h5>
             <ul className="list-unstyled">
               <li><a href="#">Contact</a></li>
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           {/* Account Links */}
-          <div className="col-12 col-md-3 mb-4">
+          <div className="col-12 col-md-3 mb-4" data-aos="fade-left">
             <h5 className='clr'>Account</h5>
             <ul className="list-unstyled">
               <li><a href="#">Open an Account</a></li>
@@ -55,5 +55,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
