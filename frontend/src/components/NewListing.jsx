@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react'; 
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; 
 import { AuthContext } from '../context/authcontext'; 
+import { ListingsContext } from '../context/listingContext'; 
 import { BASE_URL } from '../../client';
 
 export default function NewListing() {
   const navigate = useNavigate(); 
   const { userData, token } = useContext(AuthContext); 
+  const { fetchListings } = useContext(ListingsContext); 
 
   useEffect(() => {
     if (!userData || userData.role === "user") { 
@@ -27,6 +29,7 @@ export default function NewListing() {
   });
 
   const [snack, setSnack] = useState({ open: false, message: '', severity: 'success' });
+  const [loading, setLoading] = useState(false);  // Track loading state
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -46,6 +49,7 @@ export default function NewListing() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true while submitting the form
   
     try {
       const dataToSend = new FormData();
@@ -62,10 +66,9 @@ export default function NewListing() {
       });
   
       const result = await response.json();
-      console.log('Status:', response.status);
-      console.log('Result:', result);
-  
+      
       if (response.ok) {
+        await fetchListings(); // ✅ Refresh listings
         setSnack({ open: true, message: 'Listing created successfully!', severity: 'success' });
         setFormData({
           title: '',
@@ -85,6 +88,8 @@ export default function NewListing() {
     } catch (err) {
       console.error(err);
       setSnack({ open: true, message: 'Error occurred while creating listing.', severity: 'error' });
+    } finally {
+      setLoading(false); // Set loading to false once the request is completed
     }
   };
 
@@ -114,7 +119,7 @@ export default function NewListing() {
           />
         </div>
         <div className="mb-3" data-aos="fade-up" data-aos-delay="200">
-          <label className="form-label">Image URL</label>
+          <label className="form-label">Image</label>
           <input
             type="file"
             name="image"
@@ -194,7 +199,9 @@ export default function NewListing() {
           </div>
         </div>
 
-        <button className="btn btn-success" data-aos="fade-up" data-aos-delay="700">Add Listing</button>
+        <button className="btn btn-success" data-aos="fade-up" data-aos-delay="700" disabled={loading}>
+          {loading ? <CircularProgress size={24} color="inherit" /> : 'Add Listing'}
+        </button>
       </form>
 
       {/* Snackbar for success/error messages */}
