@@ -1,4 +1,3 @@
-
 /* Overview container and other styles remain the same */
 .overview-container {
   margin: 40px auto;
@@ -70,4 +69,58 @@
 .overview-text {
   color: #444;
   line-height: 1.6;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .overview-row {
+    justify-content: space-around;
+  }
+
+  .overview-box {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .overview-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overview-box {
+    max-width: 90%;
+    margin-bottom: 20px; /* Add some spacing between cards */
+  }
+
+  .overview-title {
+    font-size: 2rem;
+  }
+
+  .overview-heading {
+    font-size: 1.2rem;
+  }
+
+  .overview-text {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-title {
+    font-size: 1.8rem;
+  }
+
+  .overview-heading {
+    font-size: 1.1rem;
+  }
+
+  .overview-text {
+    font-size: 0.9rem;
+  }
+
+  .overview-box {
+    padding: 15px;
+    height: auto;
+  }
 }
