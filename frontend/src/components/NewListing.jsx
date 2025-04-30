@@ -8,11 +8,11 @@ export default function NewListing() {
   const navigate = useNavigate(); 
   const { userData, token } = useContext(AuthContext); 
 
-  useEffect(() => {
-    if (!userData || userData.role === "user") { 
-      navigate('/listings'); 
-    }
-  }, [userData, navigate]);
+  // useEffect(() => {
+  //   if (!userData || userData.role === "user") { 
+  //     navigate('/listings'); 
+  //   }
+  // }, [userData, navigate]);
 
   const [formData, setFormData] = useState({
     title: '',
