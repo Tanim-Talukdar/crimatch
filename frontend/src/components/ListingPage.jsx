@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/ListingPage.css";
 import { Link } from "react-router-dom";
 import { ListingsContext } from "../context/listingContext";
+import Loading from "../Loading"; // Make sure this path is correct
 
 const Listing = () => {
-  const { listings } = React.useContext(ListingsContext);
+  const { listings } = useContext(ListingsContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (listings.length > 0) {
+      setLoading(false);
+    }
+  }, [listings]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container">
