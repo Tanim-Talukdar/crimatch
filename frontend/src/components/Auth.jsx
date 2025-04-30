@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Snackbar } from '@mui/material';
-import Spline from '@splinetool/react-spline';
 import { AuthContext } from '../context/authcontext';
 
 export default function Authentication() {
@@ -37,25 +36,14 @@ export default function Authentication() {
       }
     } catch (err) {
       console.log(err);
-      let message = err.response.data.message;
+      let message = err.response?.data?.message || "Something went wrong";
       setError(message);
     }
   };
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '88vh', overflow: 'hidden' }}>
-      {/* Background */}
-      <Spline
-        scene="https://prod.spline.design/EmWnFFBi55UM0z5K/scene.splinecode"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 0,
-        }}
-      />
+      {/* Background Removed (Spline deleted) */}
 
       {/* Centered Auth Card */}
       <Box
