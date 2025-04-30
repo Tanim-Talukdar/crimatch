@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { client } from "../../client";
+import { useNavigate } from "react-router-dom";
 
 export const ListingsContext = createContext();
 
@@ -9,10 +10,12 @@ export const ListingsProvider = ({ children }) => {
   const [message, setMessage] = useState(""); 
   const [notFound, setNotFound] = useState(false); 
   const [listing, setListing] = useState(null);
+  const navigate = useNavigate(); 
 
   const fetchListings = async () => {
     try {
       const res = await client.get("/getAllListings");
+      console.log(res);
       setListings(res.data);
     } catch (error) {
       console.error("Failed to fetch listings", error);
@@ -38,6 +41,24 @@ export const ListingsProvider = ({ children }) => {
     }
   };
 
+  const dltListing = async (id) => {
+    try {
+      const token = localStorage.getItem("token"); // or however you store it
+      const res = await client.delete(`/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      setListings(listings.filter((listing) => listing._id !== id));
+      setMessage("Listing deleted successfully.");
+      navigate("/Listings");
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+      setMessage("An error occurred while deleting the listing.");
+    }
+  };
+
   useEffect(() => {
     fetchListings();
   }, []);
@@ -50,11 +71,12 @@ export const ListingsProvider = ({ children }) => {
         message,
         notFound,
         listing,
+        fetchListings,
         fetchSingleListing,
+        dltListing,
       }}
     >
       {children}
     </ListingsContext.Provider>
   );
 };
-
