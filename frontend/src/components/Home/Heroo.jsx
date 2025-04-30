@@ -68,7 +68,7 @@ const Heroo = () => {
             gap: '20px',
           }}
         >
-          <a herf="/auth"
+          <button 
             sx={{
               color: '#ffffff',
               backgroundColor: '#00b894', // Bluish background
@@ -82,9 +82,9 @@ const Heroo = () => {
             data-aos-delay="300" // Delay animation for staggered effect
           >
             Login
-          </a>
+          </button>
 
-          <a herf="/auth"
+          <button 
             sx={{
               color: '#ffffff',
               border: '1px solid #00b894', // Bluish border
@@ -101,7 +101,7 @@ const Heroo = () => {
             data-aos-delay="500" // Staggered delay for the second button
           >
             Register
-          </a>
+          </button>
         </div>
       </div>
     </main>
