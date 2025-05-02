@@ -33,20 +33,22 @@ const ScheduleSection = () => {
             variants={fadeIn('up', 0.4)}
             className="text-warning fw-semibold"
           >
-            SCHEDULE
+            DELIVERY
           </motion.span>
           <motion.h2 
             variants={textVariant(0.5)}
             className="h3 h-md-2 fw-bold text-dark mt-3 mb-4"
           >
-            Streamline Your Business <br />
-            With Smart Scheduling Solutions
+            Delivered fast <br />
+             efficiently and seamlessly and without hassle
+
           </motion.h2>
           <motion.p 
             variants={fadeIn('up', 0.6)}
             className="text-secondary mb-4"
           >
-            Take control of your time and boost productivity with our intelligent scheduling system. Automate appointments, manage team availability, and deliver exceptional customer experiences through seamless calendar management.
+           Over here, we've got a large team of delivery men who will deliver within the shortest time possible. For priority orders, we will take a minor extra charge but deliver within 24 hours.
+
           </motion.p>
           <motion.a 
             variants={fadeIn('up', 0.7)}
