@@ -8,7 +8,9 @@
   height: 80vh;
 }
 
-
+nav{
+  z-index: 999;
+}
 .nav-link {
   font-size: 1.2rem;
   z-index: 2;
@@ -165,4 +167,20 @@ footer a,p{
 .content {
   font-size: 20px;
   color: green;
+}
+
+
+.marquee-wrapper {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
