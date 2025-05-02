@@ -1,25 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const NumberBox = () => {
-  const [value, setValue] = useState(0);
-
+const NumberBox = ({ quantity, setQuantity }) => {
   const handleChange = (e) => {
     const input = e.target.value;
     if (/^-?\d*$/.test(input)) {
-      setValue(Number(input));
+      setQuantity(Number(input)); // Update quantity state in parent component (Show)
     }
   };
 
-  const increment = () => setValue(prev => prev + 1);
-  const decrement = () => setValue(prev => {
-    if (prev > 0) {
-      return prev - 1; // Decrease only if the value is greater than 0
-    }
-    return prev; // If the value is 0 or less, don't change it
-  });
+  const increment = () => setQuantity(prev => prev + 1);
+  const decrement = () => setQuantity(prev => (prev > 0 ? prev - 1 : prev));
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ width: '200px' }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ width: '150px' }}>
       <div className="border d-flex align-items-center w-100">
         <button
           onClick={decrement}
@@ -31,10 +24,10 @@ const NumberBox = () => {
 
         <input
           type="text"
-          value={value}
+          value={quantity}
           onChange={handleChange}
           className="form-control text-center"
-          style={{ width: '120px', fontSize: '16px',border:"0" }}
+          style={{ width: '100%', fontSize: '16px', border: "0" }}
         />
 
         <button
