@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { AuthContext } from './context/authcontext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link, useLocation } from 'react-router-dom';
+import Profile from './components/profile'; // adjust path if needed
 
 export default function Nav() {
   const { token, handleLogout, userData } = useContext(AuthContext);
   const location = useLocation();
+  const [showProfile, setShowProfile] = useState(false);
+  const profileRef = useRef();
 
   useEffect(() => {
     const collapse = document.getElementById('navbarSupportedContent');
@@ -14,7 +17,27 @@ export default function Nav() {
       toggle: false,
     });
     bsCollapse.hide();
+    setShowProfile(false); // hide profile on route change
   }, [location]);
+
+  // Hide popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfile(false);
+      }
+    };
+
+    if (showProfile) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showProfile]);
 
   return (
     <>
@@ -64,19 +87,45 @@ export default function Nav() {
             <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <div data-aos="fade-left">
-            <a href="/cart" className="btn btn-outline-secondary rounded-circle mx-2" style={{ height: "50px", width: "48px", border: "0" }}>
+          <div data-aos="fade-left" className="position-relative">
+            <Link to="/cart" className="btn btn-outline-secondary rounded-circle mx-2" style={{ height: "50px", width: "48px", border: "0" }}>
               <ShoppingCartIcon />
-            </a>
-            <a href="/profile" className="btn btn-outline-secondary rounded-circle mx-2" style={{ height: "50px", width: "48px", border: "0" }}>
+            </Link>
+
+            <button
+              data-aos="zoom-in"
+              className="btn btn-outline-secondary rounded-circle mx-2"
+              style={{ height: "50px", width: "48px", border: "0" }}
+              onClick={() => setShowProfile(!showProfile)}
+            >
               <PersonIcon />
-            </a>
+            </button>
+
+            {/* PROFILE POPUP */}
+            {showProfile && (
+              <div
+                ref={profileRef}
+                data-aos="fade-up-left"
+                className="position-fixed bg-white rounded shadow p-3"
+                style={{
+                  bottom: "-70px",
+                  right: "20px",
+                  zIndex: 1050,
+                  width: "385px",
+
+                  border: "1px solid #ccc"
+                }}
+              >
+                <div className="d-flex justify-content-between align-items-center mb-2 ">
+                  <h5 className="mb-0">My Profile</h5>
+                  <button type="button" className="btn-close" onClick={() => setShowProfile(false)}></button>
+                </div>
+                <Profile />
+              </div>
+            )}
           </div>
         </div>
       </nav>
     </>
   );
 }
-
-
-
