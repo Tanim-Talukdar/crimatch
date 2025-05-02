@@ -16,20 +16,20 @@ const ServicesSection = () => {
     },
     {
       icon: <HiLightBulb className="w-8 h-8 text-amber-400" />,
-      title: "Ad-Creatives", 
-      description: "Alphabet Village and the subline of her own road.",
+      title: "Quality Assurance", 
+      description: "Our plants are run by expert Quality Assaurance Officers, who take great care when letting the product throught the production line",
       link: "#learn-more"
     },
     {
       icon: <FiSettings className="w-8 h-8 text-red-400" />,
       title: "Automation",
-      description: "Little Blind Text should turn around and return.",
+      description: "The website comes with an AI to help with client needs. Although, it is in a primal form but will be developed over time",
       link: "#learn-more"
     },
     {
       icon: <BiTime className="w-8 h-8 text-cyan-400" />,
       title: "Infographics",
-      description: "Nothing the copy said could convince her.",
+      description: "QUO = 2, Development = 6, Designing = 2, PR Secretary = 3 .",
       link: "#learn-more"
     }
   ];
