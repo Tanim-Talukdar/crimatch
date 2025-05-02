@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Nav from './Nav';
 import Auth from './components/Auth';
-import Home from './components/Home/Homepage';
 import Listing from './components/ListingPage';
 import { AuthProvider } from './context/authcontext';
 import Show from './components/Show';
@@ -16,12 +15,15 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import CartPage from './components/Cart/CartPage';
 import EditListing from './components/EditListing';
+import { CartProvider } from './context/cartcontext';
+import Merge from './components/HomeTrial/Merge'
+import Chatbox from './chatbot';
 
 
 function AppContent() {
   const location = useLocation();
 
-  // Initialize AOS inside useEffect
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -29,14 +31,13 @@ function AppContent() {
     });
   }, []);
 
-  // paths where you want to hide the footer
   const hideFooterPaths = ["/auth"];
 
   return (
     <>
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Merge />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/listings" element={<Listing />} />
         <Route path="/listings/:id" element={<Show />} />
@@ -46,6 +47,7 @@ function AppContent() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Chatbox/>
       {!hideFooterPaths.includes(location.pathname) && <Footer />}
     </>
   );
@@ -56,7 +58,9 @@ export default function App() {
     <BrowserRouter>
       <ListingsProvider>
         <AuthProvider>
-          <AppContent />
+          <CartProvider>
+            <AppContent />
+          </CartProvider>
         </AuthProvider>
       </ListingsProvider>
     </BrowserRouter>
