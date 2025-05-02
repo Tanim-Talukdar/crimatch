@@ -16,7 +16,6 @@ const Hero = () => {
               <span className="small font-medium">Recyling, for a sustainable future</span>
             </div>
             <br />
-            <br />
           </motion.div>
 
           <motion.h1 
@@ -29,7 +28,6 @@ const Hero = () => {
             <span className="d-inline-block ml-2 animate-pulse">♻️</span>
           </motion.h1>
           <br />
-          <br />
           <motion.p 
             variants={fadeIn('up', 0.4)}
             initial="hidden"
@@ -38,7 +36,6 @@ const Hero = () => {
           >
             Get the cheapest plastic, save time and resources while cutting out the middle men - all within one simple process.
           </motion.p>
-         <br />
          <br />
           <motion.div 
             variants={fadeIn('up', 0.5)}
