@@ -19,23 +19,24 @@ const MonitorSection = () => {
           variants={fadeIn('right', 0.3)}
           className="col-12 col-md-6"
         >
-          <motion.span 
+{/*           <motion.span 
             variants={fadeIn('up', 0.4)}
             className="text-success fw-semibold"
           >
-            MONITOR
-          </motion.span>
+            PURPOSE
+          </motion.span> */}
           <motion.h2 
             variants={textVariant(0.5)}
             className="h3 h-md-2 fw-bold text-dark mt-3 mb-4"
           >
-            Introducing best mobile carousels
+           PURPOSE 
           </motion.h2>
           <motion.p 
             variants={fadeIn('up', 0.6)}
             className="text-muted mb-4"
           >
-            Before the ship is really back. Round, round, all around the world. Round, all around the world. Round, all around the world. Round, all around the world.
+            This website was created with the purpose of reducing scams and prices. It takes the rough process of having plastic recycled through several hands and simplifies it down to one company and customer
+          
           </motion.p>
           <motion.a 
             variants={fadeIn('up', 0.7)}
