@@ -11,19 +11,19 @@ const testimonials = [
     id: 1,
     name: "Robin Ayala Do",
     image: "https://randomuser.me/api/portraits/men/77.jpg",
-    text: "I brought plastic from here, khankir polay amare scam kore dise",
+    text: "I brought plastic from here, the delivery was fast and efficient. Im satisfied with my order",
   },
   {
     id: 2,
     name: "John De marli",
     image: "https://randomuser.me/api/portraits/women/90.jpg", 
-    text: "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.",
+    text: "First time ordering from here, glad with the received product",
   },
   {
     id: 3,
     name: "Rowhan Smith",
     image: "https://randomuser.me/api/portraits/men/90.jpg",
-    text: "When she reached the first hills of the Mountains, she had a last view back on the of her hometown Bookmarksgrove, the headline.",
+    text: "Had some issues with my product, the authorities replaced it within a short time",
   },
   {
     id: 4,
