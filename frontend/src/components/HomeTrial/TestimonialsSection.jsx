@@ -9,9 +9,9 @@ import { fadeIn, textVariant } from "../../utils/motion";
 const testimonials = [
   {
     id: 1,
-    name: "Robin Ayala Doe", 
+    name: "Robin Ayala Do 
     image: "https://randomuser.me/api/portraits/men/77.jpg",
-    text: "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast.",
+    text: "I brought plastic from here, khankir polay amare scam kore dise",
   },
   {
     id: 2,
@@ -56,13 +56,13 @@ const TestimonialsSection = () => {
           variants={textVariant(0.2)}
           className="fw-bold fs-2 mb-3"
         >
-          What our happy client say
+          Customer Reviews
         </motion.h2>
         <motion.p
           variants={fadeIn('up', 0.4)}
           className="text-secondary"
         >
-          Things that make it the best place to start trading
+         Reviews from satisfied customers
         </motion.p>
       </motion.div>
 
