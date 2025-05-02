@@ -9,7 +9,7 @@ import { fadeIn, textVariant } from "../../utils/motion";
 const testimonials = [
   {
     id: 1,
-    name: "Robin Ayala Do 
+    name: "Robin Ayala Do",
     image: "https://randomuser.me/api/portraits/men/77.jpg",
     text: "I brought plastic from here, khankir polay amare scam kore dise",
   },
