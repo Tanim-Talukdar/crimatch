@@ -4,13 +4,16 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { ListingsContext } from "../context/listingContext";
 import NumberBox from "./quantity";
 import { AuthContext } from '../context/authcontext';
-import Loading from '../Loading'; // Import the Loading component
+import Loading from '../Loading'; 
+import { cartcontext } from '../context/cartcontext'; 
 
 export default function Show() {
   const { userData } = useContext(AuthContext); // Access user data for admin check
-  const { id } = useParams();
-  
+  const { id } = useParams(); // Get product ID from URL parameters
   const { listing, notFound, message, fetchSingleListing, dltListing } = useContext(ListingsContext);
+  const { addToCart } = useContext(cartcontext); // Assuming you have an addToCart method in your cart context
+
+  const [quantity, setQuantity] = useState(1); // Track quantity of the product
 
   useEffect(() => {
     fetchSingleListing(id); // Fetch the listing when the component mounts or the ID changes
@@ -26,13 +29,22 @@ export default function Show() {
   }
 
   if (!listing) {
-    return <Loading />; // Show loading spinner if the listing is not fetched yet
+    return <Loading />; 
   }
 
-  // Handle delete button click
+
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this listing?")) {
-      dltListing(id); // Call the delete function with the listing ID
+      dltListing(id); 
+    }
+  };
+
+
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      addToCart(listing._id, quantity); 
+    } else {
+      alert("Please select a quantity greater than 0");
     }
   };
 
@@ -53,13 +65,18 @@ export default function Show() {
           <pre className="fs-5">Condition  : {listing.condition}</pre>
           <pre className="fs-5">Location   : {listing.location}, {listing.country}</pre>
           <hr />
-          <pre className="fs-5">Quantity(kg)  : </pre><NumberBox/>
+          <pre className="fs-5">Quantity(kg)  : </pre>
+          
+          {/* Update Quantity component */}
+          <NumberBox quantity={quantity} setQuantity={setQuantity} />
 
           <button className="btn btn-success w-25 fs-5 mt-5">Buy</button>
 
-          <button className="btn btn-outline-success w-50 fs-5 mt-5 mx-3">
+          {/* Add to Cart Button */}
+          <button className="btn btn-outline-success w-50 fs-5 mt-5 mx-3" onClick={handleAddToCart}>
             <ShoppingCartCheckoutIcon /> Add to Cart
           </button>
+
           {userData && userData.role === "admin" && (
             <div className="mt-3">
               <button className="btn btn-outline-danger me-3 w-25" onClick={handleDelete}>
