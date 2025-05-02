@@ -65,7 +65,7 @@ const Hero = () => {
           whileInView="show"
           className="col-12 col-md-6 mt-4 mt-md-0"
         >
-          <div className="position-relative">
+          <div className="position-relative rounded">
             <img
               src={heroImage}
               alt="Team meeting"
