@@ -7,7 +7,7 @@ import listingRoutes from "./src/routes/listing.routes.js";
 import contactRoutes from "./src/routes/contact.routes.js";
 import reviewRoutes from "./src/routes/review.routes.js";
 import CartRoutes from "./src/routes/cart.routes.js"
-import OpenAI from "openai";
+// import OpenAI from "openai";
 
 
 if (process.env.NODE_ENV != "production"){
@@ -20,10 +20,10 @@ app.use(cors());
 app.use(express.json({limit: "40kb"}));
 app.use(express.urlencoded({limit: "40kb", extended: true}));
 
-const openai = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1/chat/completions',
-    apiKey: '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'
-});
+// const openai = new OpenAI({
+//     baseURL: 'https://openrouter.ai/api/v1/chat/completions',
+//     apiKey: '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'
+// });
 
 const PORT = process.env.PORT || 5000;
 const dburl = process.env.MONGODB_URI;
@@ -32,7 +32,7 @@ async function main() {
     await mongoose.connect(dburl);
 }
 
-app.post('/api/chat',async (req, res) => {
+app.post('/api/chat',(req, res) => {
     const userMessage = req.body.message;
     let botReply = "Sorry, I didn’t get that.";
   
