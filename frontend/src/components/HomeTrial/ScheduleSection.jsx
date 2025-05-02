@@ -1,4 +1,4 @@
-import scheduleImage from '../../assets/stats.webp'
+import scheduleImage from '../../assets/balls.webp'
 import { motion } from "framer-motion";
 import { fadeIn, textVariant } from "../../utils/motion";
 
