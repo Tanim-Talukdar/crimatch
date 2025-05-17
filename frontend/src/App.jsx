@@ -7,7 +7,7 @@ import { AuthProvider } from './context/authcontext';
 import Show from './components/Show';
 import Footer from './Footer';
 import NewListing from './components/NewListing';
-import { ListingsProvider } from './context/listingContext';
+import { ListingsProvider } from './context/listingContext.jsx';
 import Contact from './components/Contact';
 import NotFound from './NotFound';
 import AOS from 'aos';
