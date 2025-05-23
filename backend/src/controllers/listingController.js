@@ -65,8 +65,8 @@ const newListing = async (req, res) => {
 };
 
 const search = async (req, res) => {
-   const { query } = req.query;
-    if (!query || query.trim() === '') {
+    const q = req.query.q;
+    if (!q || q.trim() === "") {
       return res.status(400).json({ message: "Query parameter is required" });
     }
     const searchRegex = new RegExp(query, 'i'); 
