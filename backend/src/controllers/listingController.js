@@ -65,17 +65,24 @@ const newListing = async (req, res) => {
 };
 
 const search = async (req, res) => {
-    const { query } = req.query;
-    const searchRegex = new RegExp(query, 'i'); // 'i' for case-insensitive
+   const { query } = req.query;
+    if (!query || query.trim() === '') {
+      return res.status(400).json({ message: "Query parameter is required" });
+    }
+    const searchRegex = new RegExp(query, 'i'); 
 
-    const results = await Product.find({
+    const results = await Listing.find({
       $or: [
-        { name: searchRegex },
+        { title: searchRegex },
         { description: searchRegex },
-        { category: searchRegex }
+        { type: searchRegex },
+        { condition: searchRegex },
+        { country: searchRegex },
+        { location: searchRegex }
       ]
     });
-    res.json(results);
+
+    res.status(httpStatus.OK).json(results);
 };
 
 
