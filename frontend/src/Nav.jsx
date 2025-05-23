@@ -2,25 +2,24 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { AuthContext } from './context/authcontext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
-import { Link, useLocation } from 'react-router-dom';
-import Profile from './components/profile'; // adjust path if needed
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Profile from './components/profile';
 
 export default function Nav() {
   const { token, handleLogout, userData } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
   const [showProfile, setShowProfile] = useState(false);
   const profileRef = useRef();
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const collapse = document.getElementById('navbarSupportedContent');
-    const bsCollapse = new window.bootstrap.Collapse(collapse, {
-      toggle: false,
-    });
+    const bsCollapse = new window.bootstrap.Collapse(collapse, { toggle: false });
     bsCollapse.hide();
-    setShowProfile(false); // hide profile on route change
+    setShowProfile(false);
   }, [location]);
 
-  // Hide popup when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -38,6 +37,14 @@ export default function Nav() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showProfile]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim() !== '') {
+      navigate(`/search?query=${encodeURIComponent(query.trim())}`);
+      setQuery('');
+    }
+  };
 
   return (
     <>
@@ -82,8 +89,15 @@ export default function Nav() {
         <div className="container-fluid d-flex justify-content-between align-items-center w-100">
           <div style={{ width: "150px" }}></div>
 
-          <form className="d-flex" style={{ width: "400px" }} data-aos="zoom-in">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <form className="d-flex" style={{ width: "400px" }} onSubmit={handleSearch}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search recycled products..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search"
+            />
             <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
 
@@ -101,22 +115,14 @@ export default function Nav() {
               <PersonIcon />
             </button>
 
-            {/* PROFILE POPUP */}
             {showProfile && (
               <div
                 ref={profileRef}
                 data-aos="fade-up-left"
                 className="position-fixed bg-white rounded shadow p-3"
-                style={{
-                  bottom: "-70px",
-                  right: "20px",
-                  zIndex: 1050,
-                  width: "385px",
-
-                  border: "1px solid #ccc"
-                }}
+                style={{ bottom: "-70px", right: "20px", zIndex: 1050, width: "385px", border: "1px solid #ccc" }}
               >
-                <div className="d-flex justify-content-between align-items-center mb-2 ">
+                <div className="d-flex justify-content-between align-items-center mb-2">
                   <h5 className="mb-0">My Profile</h5>
                   <button type="button" className="btn-close" onClick={() => setShowProfile(false)}></button>
                 </div>

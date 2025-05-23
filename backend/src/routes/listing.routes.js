@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAlllisting, getListingDetail, newListing } from "../controllers/listingController.js";
+import { getAlllisting, getListingDetail, newListing, search } from "../controllers/listingController.js";
 import { isLogin } from "../../middleware.js";
 import wrapAsync from "../../utils/wrapAsync.js";
 import multer from "multer";
@@ -12,6 +12,7 @@ const router = Router();
 
 router.get("/getAllListings", wrapAsync(getAlllisting));
 router.get("/getAllListings/:id", wrapAsync(getListingDetail));
-router.post("/newlisting",isLogin, upload.single("image"),wrapAsync(newListing))
+router.post("/newlisting",isLogin, upload.single("image"),wrapAsync(newListing));
+router.get("/search" , wrapAsync(search));
 
 export default router;

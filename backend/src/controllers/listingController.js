@@ -64,6 +64,20 @@ const newListing = async (req, res) => {
   });
 };
 
+const search = async (req, res) => {
+    const { query } = req.query;
+    const searchRegex = new RegExp(query, 'i'); // 'i' for case-insensitive
+
+    const results = await Product.find({
+      $or: [
+        { name: searchRegex },
+        { description: searchRegex },
+        { category: searchRegex }
+      ]
+    });
+    res.json(results);
+};
 
 
-export { getAlllisting, getListingDetail, newListing };
+
+export { getAlllisting, getListingDetail, newListing,search };

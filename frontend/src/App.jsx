@@ -18,6 +18,7 @@ import EditListing from './components/EditListing';
 import { CartProvider } from './context/cartcontext';
 import Merge from './components/HomeTrial/Merge'
 import Chatbox from './chatbot';
+import SearchResult from './components/searchResult';
 
 
 function AppContent() {
@@ -46,6 +47,7 @@ function AppContent() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/search" element={<SearchResult />} />
       </Routes>
       <Chatbox/>
       {!hideFooterPaths.includes(location.pathname) && <Footer />}
