@@ -69,7 +69,7 @@ const search = async (req, res) => {
     if (!q || q.trim() === "") {
       return res.status(400).json({ message: "Query parameter is required" });
     }
-    const searchRegex = new RegExp(query, 'i'); 
+    const searchRegex = new RegExp(q, 'i'); 
 
     const results = await Listing.find({
       $or: [
@@ -84,7 +84,6 @@ const search = async (req, res) => {
 
     res.status(httpStatus.OK).json(results);
 };
-
 
 
 export { getAlllisting, getListingDetail, newListing,search };
